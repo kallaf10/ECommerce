@@ -8,5 +8,6 @@ namespace ECommerce.BLL.IRepository
 {
     public interface IBrandRepository
     {
+
     }
 }

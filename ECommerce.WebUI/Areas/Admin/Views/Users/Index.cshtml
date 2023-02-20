@@ -1,0 +1,46 @@
+﻿    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+     <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    
+   
+@model ECommerce.VM.ModelsVM.LogInVM
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "";
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<body class="container-fluid text-center d-flex align-items-center justify-content-center">
+    <div class="d-flex justify-content-center m-2">
+        @*<form class="form-signin"></form>*@
+        @using (Html.BeginForm("LogIn", "Users", FormMethod.Post))
+        {
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <div style="color:red;">
+                @Html.LabelFor(z => z.Username, new { @class = "sr-only" })
+                @Html.TextBoxFor(z => z.Username, new { @class = "form-control", @placeholder = "Username" })
+                @Html.ValidationMessageFor(z => z.Username)
+            </div>
+            <div style="color:red;">
+                @Html.LabelFor(z => z.Password, new { @class = "sr-only" })
+                @Html.PasswordFor(z => z.Password, new { @class = "form-control", @placeholder = "Password" })
+                @Html.ValidationMessageFor(z => z.Password)
+            </div>
+            <button style="margin:10px;" class="btn btn-m btn-primary" type="submit">Sign in</button>
+
+        }
+        @*</form>*@
+    </div>
+    <div class="container fixed-bottom">
+        @*@RenderBody()*@
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+   
+    @*@RenderSection("scripts", required: false)*@
+</body>
