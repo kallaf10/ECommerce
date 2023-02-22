@@ -1,5 +1,4 @@
 ﻿@model ECommerce.VM.ModelsVM.CategoryVM
-
 <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Category Details</h5>
@@ -26,16 +25,13 @@
                 <div>
                 </div>
 
-            <button type="submit" class="btn btn-success">Save</button>
+            <a href="/Admin/Category/Delete/@Model.ID" class="btn btn-danger">Delete</a>
             </div>
 
         }
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       </div>
 
-</div>
-    <script src="~/Areas/jquery/jquery.js"></script>
-    <script src="~/scripts/jquery.validate.min.js"></script>
-    <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
 </div>

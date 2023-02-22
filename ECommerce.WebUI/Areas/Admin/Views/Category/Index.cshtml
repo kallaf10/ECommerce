@@ -1,4 +1,4 @@
-﻿@model List<ECommerce.VM.ModelsVM.CategoryVM>
+﻿@using ECommerce.VM.ModelsVM
 <link href="~/Areas/Admin/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
 <body>
@@ -7,80 +7,109 @@
     <div class="container d-flex justify-content-center " style="margin-bottom:0px;">
         <button data-toggle="modal" data-target="#AddModal" class="d-inline justify-content-center btn btn-outline-primary">Add A New Category</button>
     </div>
-    <div class="container d-flex justify-content-center" style="margin-top:50px;">
-        <div class="row">
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Edit</th>
-                        <th>Details</th>
-                        <th>Delete</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+
+    <!-- Start DataTabel -->
+    <div class="card w-100">
+
+        <!-- Start Tabel-->
+
+        @Html.Action("CategoriesDetails")
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<div class="container d-flex justify-content-center" style="margin-top:50px;">
+            <div class="row">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
                         <tr>
-                            <td id="@item.ID">@item.ID</td>
-                            <td>@item.Name</td>
-                            <td>@item.Description</td>
-                            <td>
-                                <button type="button" class="btn btn-success mb-3" data-toggle="modal"
-                                        data-target="#PopUpEdit" id="modalBtn" onclick="AJAXCallEdit(@item.ID)">
-                                    <i class="fa fa-magic" aria-hidden="true"></i>
-
-
-                                </button>
-                                <div class="modal" id="PopUpEdit" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" id="PopUpContentEdit">
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
-                                        data-target="#PopUpDetails" id="modalBtn" onclick="AJAXCallDetails(@item.ID)">
-                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                </button>
-                                <div class="modal" id="PopUpDetails" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" id="PopUpContentDetails">
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-
-                                <a href="/Admin/Category/Delete/@item.ID" class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Edit</th>
+                            <th>Details</th>
+                            <th>Delete</th>
 
                         </tr>
-                    }
-                </tbody>
+                    </thead>
+                    <tbody>
 
-            </table>
+                        {
+                            <tr>
+
+                                    <button type="button" class="btn btn-success mb-3" data-toggle="modal"
+                                            data-target="#PopUpEdit" id="modalBtn" onclick="AJAXCallEdit(.ID)">
+                                        <i class="fa fa-magic" aria-hidden="true"></i>
+
+
+                                    </button>
+                                    <div class="modal" id="PopUpEdit" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" id="PopUpContentEdit">
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                                            data-target="#PopUpDetails" id="modalBtn" onclick="AJAXCallDetails(.ID)">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </button>
+
+                                </td>
+                                <td>
+
+                                    <a href="/Admin/Category/Delete/ID" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>*@
+    <div class="modal" id="PopUpDetails" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="PopUpContentDetails">
         </div>
     </div>
     <div class="modal" id="AddModal">
         <div class="modal-dialog">
             <div class="modal-content">
-
-                <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add Category</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-
-                <!-- Modal body -->
                 <div class="modal-body d-flex align-items-center justify-content-center">
                     @Html.Action("_Add")
                 </div>
-
-                <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
@@ -92,40 +121,136 @@
         <script src="~/Scripts/jquery-3.6.3.js"></script>
         <script src="~/Areas/Admin/datatables/js/jquery.dataTables.js"></script>
         <script src="~/Areas/Admin/datatables/js/dataTables.bootstrap4.js"></script>
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/scripts/jquery.validate.min.js"></script>
+        <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
         <script src="~/Scripts/fontawesome/all.min.js"></script>
-        @*<script src="~/Areas/datatables/js/jquery.dataTables.js"></script>
-            <script src="~/Areas/datatables/js/dataTables.bootstrap4.min.js"></script>*@
         <script>
-            $(document).ready(function () {
-                $("#example").DataTable()
+
+            $(function () {
+                $('table').parent().prepend();
+                console.log("CCCCCcnininii");
+                LoadDataGrid();
+                console.log("CCCCCc");
             });
+            var LoadDataGrid = function () {
+                $('.lds-roller').fadeIn();
+                const __ajx = {
+                    url: '/Admin/Category/GetAllCategories',
+                    method: 'GET'
+                };
+                $.ajax(__ajx).done(function (data) {
+
+                    var dtObj = {
+                        data: data,
+                        responsive: true,
+                        retrieve: true,
+                        ordering: true,
+                        dom: 'Bfrtip',
+                        columns: [
+                            { 'data': 'ID' },
+                            { 'data': 'Name' },
+                            { 'data': 'Description' },
+
+                            {
+                                'data': 'ID',
+                                'searchable': false,
+                                'sortable': false,
+                                'render': function (code) {
+
+                                    var btns = '';
+
+                                    btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"
+                                                    data-target="#PopUpEdit" id="modalBtn" onclick="AJAXCallEdit(${code})">
+                                                <i class="fa fa-magic" aria-hidden="true"></i>
+
+
+                                            </button>
+                                            <div class="modal" id="PopUpEdit" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" id="PopUpContentEdit">
+                                                </div>
+                                            </div>`;
+                                    btns += `<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                                                    data-target="#PopUpDetails" id="modalBtn" onclick="AJAXCallDetails(${code})">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            </button>
+                                                              <div class="modal" id="PopUpDetails" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" id="PopUpContentDetails"></div></div>`
+                                    btns += `<button type="button" class="btn btn-danger mb-3" data-toggle="modal"
+                                                    data-target="#PopUpDelete" id="modalBtn" onclick="AJAXCallDelete(${code})">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                                              <div class="modal" id="PopUpDelete" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" id="PopUpContentDelete"></div></div>`
+
+                                    return btns;
+                                }
+                            }
+                        ]
+                    };
+
+                    _currentTable.dataTable().fnDestroy();
+                    _currentTable.dataTable(dtObj);
+
+
+                    $('.lds-roller').fadeOut(500);
+
+                }).fail(function (response, s, xhr) {
+                    toastr.error(response, 'ERROR');
+                    $('.lds-roller').fadeOut(500);
+                })
+
+            };
+            const _tblNameSlctr = '#tblCategories';
+            const _currentTable = $(`${_tblNameSlctr}`);
+
+            var OnSuccess = function (response) {
+                if ((response.edit || response.add) && response.done) {
+                    toastr.success(response.message);
+                    LoadDataGrid();
+
+                }
+            }
+        </script>
+
+
+
+
+        <script>
+            function AJAXCallDetails(id) {
+                $.ajax({
+                    url: "/Admin/Category/Details",
+                    data: { id, id },
+                    success: function (response) {
+                        document.getElementById("PopUpContentDetails").innerHTML = response;
+                    }
+                });
+            }
+        </script>
+        <script>
+            function AJAXCallEdit(id) {
+                $.ajax({
+                    url: "/Admin/Category/_Edit",
+                    data: { id, id },
+                    success: function (response) {
+                        document.getElementById("PopUpContentEdit").innerHTML = response;
+                    }
+                });
+            }
+        </script>
+        <script>
+            function AJAXCallDelete(id) {
+                $.ajax({
+                    url: "/Admin/Category/_Delete",
+                    data: { id, id },
+                    success: function (response) {
+                        document.getElementById("PopUpContentDelete").innerHTML = response;
+                    }
+                });
+            }
         </script>
     }
-    <script>
-        function AJAXCallDetails(id) {
-            $.ajax({
-                url: "/Admin/Category/Details",
-                data: { id, id },
-                success: function (response) {
-                    document.getElementById("PopUpContentDetails").innerHTML = response;
-                }
-            });
-        }
-    </script>
-    <script>
-        function AJAXCallEdit(id) {
-            $.ajax({
-                url: "/Admin/Category/_Edit",
-                data: { id, id },
-                success: function (response) {
-                    document.getElementById("PopUpContentEdit").innerHTML = response;
-                }
-            });
-        }
-    </script>
-    
+
+
     @*@if (@TempData["Message"] == "0")
         {
             <script src="~/Scripts/jquery-3.6.3.js"></script>

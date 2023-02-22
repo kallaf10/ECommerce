@@ -2,6 +2,7 @@
 using ECommerce.BLL.Repository;
 using ECommerce.DAL;
 using ECommerce.VM.ModelsVM;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,51 +17,49 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
     {
         // GET: Admin/Ctegory
         IGenericRepository<Category> categoryRepository;
+        ICategoryRepository CatRepository;
         public CategoryController()
         {
-            categoryRepository =  new GenericRepository<Category>();
+            CatRepository = new CategoryRepository();
+            categoryRepository = new GenericRepository<Category>();
         }
-        [HttpGet]
+        public ActionResult CategoriesDetails()=> PartialView();
+
         public ActionResult Index()
         {
-          List<Category> Categories= categoryRepository.GetAll();
-            List<CategoryVM> Cat = new List<CategoryVM>();
-            foreach (var c in Categories)
-            {
-               CategoryVM category =new CategoryVM();
-                
-                category.ID = c.ID;
-                category.Name = c.Name;
-                category.Description = c.Description;
-                Cat.Add(category);
-               
-            }
-            return View(Cat);
+            return View();
         }
         public ActionResult _Add()
         {
             return PartialView();
-        }  
+        }
+
+        [HttpPost]
         public ActionResult Add(CategoryVM categoryVM)
         {
             int Resp;
+            Category category = new Category();
+            category.Name = categoryVM.Name;
+            category.Description = categoryVM.Description;
+            List<Category> Cats = CatRepository.GetCategoriesByname(category.Name);
+            if (Cats.Count > 0)
+            {
+                ModelState.AddModelError("Name",errorMessage:"Thisss");
+            }
             if (ModelState.IsValid)
             {
-                Category category = new Category();
-                category.Name = categoryVM.Name;
-                category.Description = categoryVM.Description;
+                
                 Resp=categoryRepository.Add(category);
                 if(Resp>0)
                 {
                     TempData["Message"] = "Saved Successfully";
-
                 }
                 else
                     TempData["Message"] = "Please Check Data";
                 return RedirectToAction("Index");
             }
             TempData["Message"]  = "0";
-            return RedirectToAction("Index");
+            return RedirectToAction("_Add");
         }
         public ActionResult Details(int id)
         {
@@ -71,7 +70,15 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
             CatVM.Description = Cat.Description;
             return PartialView(CatVM);
         }
-        
+        public ActionResult _Delete(int id)
+        {
+            CategoryVM CatVM = new CategoryVM();
+            Category Cat = categoryRepository.GetById(id);
+            CatVM.ID = id;
+            CatVM.Name = Cat.Name;
+            CatVM.Description = Cat.Description;
+            return PartialView(CatVM);
+        }
         public ActionResult Delete(int id) 
         {
             categoryRepository.Delete(id);
@@ -86,6 +93,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
             CatVM.Description = Cat.Description;
             return PartialView(CatVM);
         }
+        [HttpPost]
         public ActionResult Edit(CategoryVM CatVM)
         {
             if(ModelState.IsValid)
@@ -98,7 +106,26 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
 
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("_Edit");
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public JsonResult GetAllCategories()
+        {
+
+            List<Category> Categories = categoryRepository.GetAll();
+            List<CategoryVM> Cats = new List<CategoryVM>();
+            foreach (var c in Categories)
+            {
+                CategoryVM category = new CategoryVM();
+
+                category.ID = c.ID;
+                category.Name = c.Name;
+                category.Description = c.Description;
+                Cats.Add(category);
+
+            }
+            return Json(Cats,JsonRequestBehavior.AllowGet);
+
         }
     }   
 }
