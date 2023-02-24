@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelsVM\BrandVM.cs" />
     <Compile Include="ModelsVM\CategoryVM.cs" />
     <Compile Include="ModelsVM\LogInVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

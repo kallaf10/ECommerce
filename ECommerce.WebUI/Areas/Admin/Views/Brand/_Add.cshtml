@@ -1,0 +1,25 @@
+﻿@model ECommerce.VM.ModelsVM.BrandVM
+@using (Html.BeginForm("Add", "Brand", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+
+{
+    <div class="align-items-center justify-content-center">
+        <div style="color:red;margin:10px;">
+            @Html.LabelFor(z => z.Name, new { @class = "sr-only" })
+            @Html.TextBoxFor(z => z.Name, new { @class = "form-control", @placeholder = "Categor Name", })
+            @Html.ValidationMessageFor(z => z.Name)
+        </div>
+        <div style="color:red;margin:10px;">
+            @Html.LabelFor(z => z.Description, new { @class = "sr-only" })
+            @Html.TextAreaFor(z => z.Description, new { @class = "form-control", @placeholder = "Category Description" })
+            @Html.ValidationMessageFor(z => z.Description)
+        </div>
+        <div style="color:red;margin:10px;">
+            @Html.LabelFor(z => z.Image, new { @class = "sr-only" })
+            <input type="file", id="fileBase" name="fileBase" class="form-control"/>
+            @Html.ValidationMessageFor(z => z.Image)
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
+    </div>
+}

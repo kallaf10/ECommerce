@@ -8,7 +8,7 @@ namespace ECommerce.BLL.IRepository
 {
     public interface IGenericRepository<T> where T : class
     {
-        int Add (T Entity);
+         int  Add (T Entity);
         List<T> GetAll();
         T GetById(int id);
         int Edit(int id, T Entity);

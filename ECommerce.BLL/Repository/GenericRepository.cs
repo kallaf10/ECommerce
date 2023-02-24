@@ -16,13 +16,13 @@ namespace ECommerce.BLL.Repository
         {
                 ECommerceDB =new ECommerceEntities();
         }
-        public int Add(T Obj)
+         public virtual  int Add(T Obj)
         {
             ECommerceDB.Set<T>().Add(Obj);
             return ECommerceDB.SaveChanges();
         }
 
-        public int Delete(int ID)
+        public virtual int Delete(int ID)
         {
             ECommerceDB.Set<T>().Remove(GetById(ID));
             return ECommerceDB.SaveChanges();

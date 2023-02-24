@@ -42,7 +42,8 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
             category.Name = categoryVM.Name;
             category.Description = categoryVM.Description;
             List<Category> Cats = CatRepository.GetCategoriesByname(category.Name);
-            if (Cats.Count > 0)
+            List<Category> Cats_Desc = Cats.Where(s=>s.Description==category.Description).ToList();
+            if (Cats.Count > 0&&Cats_Desc.Count>0)
             {
                 ModelState.AddModelError("Name",errorMessage:"Thisss");
             }
@@ -112,7 +113,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
         public JsonResult GetAllCategories()
         {
 
-            List<Category> Categories = categoryRepository.GetAll();
+            List<Category> Categories = categoryRepository.GetAll().ToList();
             List<CategoryVM> Cats = new List<CategoryVM>();
             foreach (var c in Categories)
             {

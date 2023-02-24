@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -585,6 +586,10 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Areas\Admin\Views\Category\CategoriesDetails.cshtml" />
     <Content Include="Areas\Admin\Views\Category\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\_Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\_AddBrand.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\AllBrands.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\Index.cshtml" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.3.js" />
     <Content Include="Scripts\jquery-3.6.3.min.js" />
@@ -714,6 +719,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Attatchments\BrandTable\Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

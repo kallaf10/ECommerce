@@ -12,10 +12,10 @@ namespace ECommerce.BLL.Repository
     {
         public List<Category> GetCategoriesByname(string name)
         {
-            List<Category> AllCategories= GetAll();
+            List<Category> AllCategories= GetAll().Where(c => c.Name == name).ToList();
 
-            List<Category> categories = AllCategories.Where(c => c.Name == name).ToList();
-            return categories;
+        
+            return AllCategories;
         }
     }
 }
