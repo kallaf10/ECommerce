@@ -123,14 +123,6 @@
             };
             const _tblNameSlctr = '#tblCategories';
             const _currentTable = $(`${_tblNameSlctr}`);
-
-            var OnSuccess = function (response) {
-                if ((response.edit || response.add) && response.done) {
-                    toastr.success(response.message);
-                    LoadDataGrid();
-
-                }
-            }
         </script>
 
 

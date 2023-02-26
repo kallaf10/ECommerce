@@ -1,0 +1,26 @@
+﻿@model ECommerce.VM.ModelsVM.SupplierVM
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Category Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+        @using (Ajax.BeginForm("", "", new AjaxOptions { OnBegin = "OnBegin", OnFailure = "OnFailure", OnSuccess = "OnSuccess", OnComplete = "OnComplete" }))
+        {
+            <div class="align-items-center justify-content-center">
+                <div style="color:red;margin:10px;">
+                    @Html.TextBoxFor(z => z.ID, new { @class = "form-control", @placeholder = "Brand Name", @readonly = "true" })
+                    @Html.ValidationMessageFor(z => z.ID)
+                </div>
+                <div style="color:red;margin:10px;">
+                    @Html.LabelFor(z => z.Name, new { @class = "sr-only" })
+                    @Html.TextBoxFor(z => z.Name, new { @class = "form-control", @placeholder = "Brand Name", @readonly = "true" })
+                    @Html.ValidationMessageFor(z => z.Name)
+                </div>
+            </div>
+        }
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</div>

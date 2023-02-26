@@ -1,17 +1,10 @@
 ﻿<link href="~/Areas/Admin/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
 
-<script src="~/Scripts/jquery-3.6.3.js"></script>
-<script src="~/Areas/Admin/datatables/js/jquery.dataTables.js"></script>
-<script src="~/Areas/Admin/datatables/js/dataTables.bootstrap4.js"></script>
-<script src="~/scripts/jquery.validate.min.js"></script>
-<script src="~/scripts/jquery.validate.unobtrusive.js"></script>
-<script src="~/Scripts/fontawesome/all.min.js"></script>
-
 <body>
 
-    <div class="container d-flex justify-content-center " style="margin-bottom:0px;">
-        <button data-toggle="modal" data-target="#AddBrand" class="d-inline justify-content-center btn btn-outline-primary">Add A New Category</button>
+    <div class="container d-flex justify-content-center " style="margin-bottom:10px;">
+        <button data-toggle="modal" data-target="#AddBrand" class="d-inline justify-content-center btn btn-outline-primary">Add A New Brand</button>
     </div>
 
     <!-- Start DataTabel -->
@@ -39,4 +32,121 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="BrandDetails" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="BrandDetailsContent">
+
+        </div>
+    </div> 
+    <div class="modal" id="BrandEdit" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="BrandEditContent">
+
+        </div>
+    </div>
+    <div class="modal" id="DeleteBrand" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="BrandDeleteContent">
+
+        </div>
+    </div>
+    @section scripts
+        {
+        <script src="~/Scripts/jquery-3.6.3.js"></script>
+        <script src="~/Areas/Admin/datatables/js/jquery.dataTables.js"></script>
+        <script src="~/Areas/Admin/datatables/js/dataTables.bootstrap4.js"></script>
+        <script src="~/scripts/jquery.validate.min.js"></script>
+        <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/fontawesome/all.min.js"></script>
+        <script>
+            $(function () {
+                LoadBrandsData();
+            });
+            var LoadBrandsData = function () {
+                const __ajax = {
+                    url: '/Admin/Brand/GetAllBrandts',
+                    method: 'GET'
+                }
+                $.ajax(__ajax).done(function (data) {
+                    var dataTableObj = {
+                        data: data,
+                        responsive: true,
+                        retrieve: true,
+                        ordering: true,
+                        columns: [
+                            { 'data': 'ID' },
+                            { 'data': 'Name' },
+                            { 'data': 'Description' },
+                            {
+                                'data': 'Image'
+                                , 'searchable': false,
+                                'sortable': false,
+                                'render': function (img) {
+                                    return `<a href= "../../Attatchments/BrandTable/Images/${img}" target="_blank">
+                                                   <img src="../../Attatchments/BrandTable/Images/${img}" style="width:30px;hight:30px;border-radius:100px;" />
+                                            </a>`
+                                }
+                            },
+                            {
+                                'data': 'ID'
+                                , 'searchable': false,
+                                'sortable': false,
+                                'render': function (Code) {
+                                    btns = '';
+                                    btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"
+                                        data-target="#BrandEdit" id="modalBtn" onclick="EditBrand(${Code})"><i class="fa fa-magic" aria-hidden="true"></i></button>`
+                                    btns += `<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                                        data-target="#BrandDetails" id="modalBtn" onclick="BrandDetails(${Code})"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
+                                    btns += `<button type="button" class="btn btn-danger mb-3" data-toggle="modal"
+                                        data-target="#DeleteBrand" id="modalBtn" onclick="DeleteBrand(${Code})"style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button>`
+                
+                                    return btns
+                                }
+
+                            }
+                        ]
+
+                    };
+                    _table.dataTable().fnDestroy();
+                    _table.dataTable(dataTableObj);
+
+                }).fail(function (response, s, xhr) {
+                    document.alert(response);
+                })
+            };
+            const _tableSelector = '#tblBrands';
+            const _table = $(`${_tableSelector}`);
+        </script>
+        <script>
+            function EditBrand(id) {
+                $.ajax({
+                    url: "/Admin/Brand/_Edit",
+                    data: { id, id },
+                    success: function (response) {
+                        document.getElementById("BrandEditContent").innerHTML = response;
+                    }
+                });
+            }
+        </script>
+                <script>
+                    function BrandDetails(id) {
+                $.ajax({
+                    url: "/Admin/Brand/_Details",
+                    data: { id, id },
+                    success: function (response) {
+                        document.getElementById("BrandDetailsContent").innerHTML = response;
+                    }
+                });
+            }
+        </script>
+                <script>
+            function DeleteBrand(id) {
+                $.ajax({
+                    url: "/Admin/Brand/_Delete",
+                    data: { id, id },
+                    success: function (response) {
+                        document.getElementById("BrandDeleteContent").innerHTML = response;
+                    }
+                });
+            }
+        </script>
+
+    }
 </body>

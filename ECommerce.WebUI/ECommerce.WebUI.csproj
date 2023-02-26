@@ -137,6 +137,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -587,9 +588,17 @@
     <Content Include="Areas\Admin\Views\Category\CategoriesDetails.cshtml" />
     <Content Include="Areas\Admin\Views\Category\_Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\_Add.cshtml" />
-    <Content Include="Areas\Admin\Views\Brand\_AddBrand.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\AllBrands.cshtml" />
     <Content Include="Areas\Admin\Views\Brand\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\_Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\_Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\_AllSuppliers.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\_Details.cshtml" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.3.js" />
     <Content Include="Scripts\jquery-3.6.3.min.js" />

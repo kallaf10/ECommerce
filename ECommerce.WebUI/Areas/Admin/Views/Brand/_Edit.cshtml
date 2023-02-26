@@ -1,0 +1,41 @@
+﻿@model ECommerce.VM.ModelsVM.BrandVM
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Category Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+
+
+        @using (Html.BeginForm("Edit", "Brand", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+
+        {
+            <div class="align-items-center justify-content-center">
+                <div style="color:red;margin:10px;">
+                    @Html.LabelFor(z => z.ID)
+                    @Html.TextBoxFor(z => z.ID, new { @class = "form-control", @readonly = "true" })
+                </div>
+                <div style="color:red;margin:10px;">
+                    @Html.LabelFor(z => z.Name)
+                    @Html.TextBoxFor(z => z.Name, new { @class = "form-control", @placeholder = "Brand Name", })
+                    @Html.ValidationMessageFor(z => z.Name)
+                </div>
+                <div style="color:red;margin:10px;">
+                    @Html.LabelFor(z => z.Description)
+                    @Html.TextAreaFor(z => z.Description, new { @class = "form-control", @placeholder = "Brand Description" })
+                    @Html.ValidationMessageFor(z => z.Description)
+                </div>
+                <div style="color:red;margin:10px; padding:10px;">
+                    <input type="file" , id="fileBase" name="fileBase" class="form-control" />
+                    @Html.ValidationMessageFor(z => z.Image)
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</div>
