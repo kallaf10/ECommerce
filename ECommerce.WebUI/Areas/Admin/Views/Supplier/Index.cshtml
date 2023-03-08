@@ -1,7 +1,9 @@
 ﻿<link href="~/Areas/Admin/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" />
 <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
+<link href="~/Content/toastr.css" rel="stylesheet" />
 <div class="container d-flex justify-content-center " style="margin-bottom:10px;">
-    <button data-toggle="modal" data-target="#AddSupplier" class="d-inline justify-content-center btn btn-outline-primary">Add A New Brand</button>
+    <button data-toggle="modal" data-target="#AddSupplier" class="d-inline justify-content-center btn btn-outline-primary">Add A New Supplier</button>
 </div>
 <div class="modal" id="AddSupplier">
     <div class="modal-dialog">
@@ -27,29 +29,32 @@
     @Html.Action("_AllSuppliers")
 
 </div>
-<div class="modal" id="SupplierDetails" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal" id="SupplierDetails" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
     <div class="modal-dialog modal-dialog-centered" id="SupplierDetailsContent">
 
     </div>
 </div>
-<div class="modal" id="SupplierEdit" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal" id="SupplierEdit" data-bs-keyboard="false" tabindex="-1"aria-labelledby="staticBackdropLabel">
     <div class="modal-dialog modal-dialog-centered" id="SupplierEditContent">
 
     </div>
 </div>
-<div class="modal" id="DeleteSupplier" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal" id="DeleteSupplier" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
     <div class="modal-dialog modal-dialog-centered" id="SupplierDeleteContent">
 
     </div>
 </div>
 @section scripts{
     <script src="~/Scripts/jquery-3.6.3.js"></script>
+    <script src="~/lib/bootstrap-modal/js/bootstrap-modal.js"></script>
+    <script src="~/lib/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
     <script src="~/Areas/Admin/datatables/js/jquery.dataTables.js"></script>
     <script src="~/Areas/Admin/datatables/js/dataTables.bootstrap4.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/fontawesome/all.min.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
     <script>
         $(function () {
             LoadSuppliersData();
@@ -75,11 +80,11 @@
                             'render': function (Code) {
                                 btns = '';
                                 btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"
-                                                        data-target="#SupplierEdit" id="modalBtn" onclick="EditSupplier(${Code})"><i class="fa fa-magic" aria-hidden="true"></i></button>`
+                                                                            data-target="#SupplierEdit" id="modalBtn" onclick="EditSupplier(${Code})"><i class="fa fa-magic" aria-hidden="true"></i></button>`
                                 btns += `<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
-                                                        data-target="#SupplierDetails" id="modalBtn" onclick="SupplierDetails(${Code})"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
+                                                                            data-target="#SupplierDetails" id="modalBtn" onclick="SupplierDetails(${Code})"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
                                 btns += `<button type="button" class="btn btn-danger mb-3" data-toggle="modal"
-                                                        data-target="#DeleteSupplier" id="modalBtn" onclick="DeleteSupplier(${Code})"style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button>`
+                                                                            data-target="#DeleteSupplier" id="modalBtn" onclick="DeleteSupplier(${Code})"style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button>`
 
                                 return btns
                             }
@@ -114,23 +119,20 @@
             //alert("From Complete")
             LoadSuppliersData();
 
-        //    window.location.href = "/Admin/Supplier/Index"
+            //    window.location.href = "/Admin/Supplier/Index"
         }
     </script>
     <script>
 
 
         function OnSuccessDeleting(data) {
-            alert("Successfully Deleted")
         }
         function OnFailureDelete(response) {
             console.log(response)
         }
         function OnBeginDelete() {
-            alert("Hello Ajax Form Delete")
         }
         function OnCompleteDeleting() {
-            alert("Deleted........")
             window.location.href = "/Admin/Supplier/Index"
         }
     </script>
@@ -138,20 +140,25 @@
 
 
         function OnSuccessEditing(data) {
-            alert("Successfully Edited")
+            toastr.success("Successfully Saved")
         }
         function OnFailureEditing(response) {
-            console.log(response)
+            toastr.error(response)
         }
         function OnBeginEditing() {
-            alert("Hello Ajax Form Edit")
+            toastr.warning("Hello Ajax Form Edit")
         }
         function OnCompleteEditing() {
-            alert("Edited........")
-            window.location.href = "/Admin/Supplier/Index"
+            toastr.warning("Hello Ajax Form Edit")
+            //console.log();
+            $('#SupplierEdit').modal('toggle');
+            //$('#modalediting').modal('hide');sss
+            LoadSuppliersData();
+            //$(body).
+            //    $('#SupplierEdit').modal('hide');
         }
     </script>
-
+     
     <script>
         function EditSupplier(id) {
             $.ajax({
@@ -159,6 +166,7 @@
                 data: { id, id },
                 success: function (response) {
                     document.getElementById("SupplierEditContent").innerHTML = response;
+
                 }
             });
         }

@@ -57,18 +57,30 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.12.0\lib\net46\Serilog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -113,9 +125,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -137,6 +146,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -401,6 +411,15 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fontawesome.css" />
     <Content Include="Content\fontawesome.min.css" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\regular.css" />
     <Content Include="Content\regular.min.css" />
@@ -408,6 +427,49 @@
     <Content Include="Content\solid.min.css" />
     <Content Include="Content\svg-with-js.css" />
     <Content Include="Content\svg-with-js.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Content\v4-shims.css" />
     <Content Include="Content\v4-shims.min.css" />
     <Content Include="favicon.ico" />
@@ -458,6 +520,96 @@
     <Content Include="lib\datatables\js\dataTables.uikit.min.js" />
     <Content Include="lib\datatables\js\jquery.dataTables.js" />
     <Content Include="lib\datatables\js\jquery.dataTables.min.js" />
+    <Content Include="lib\datepicker\datepicker.common.js" />
+    <Content Include="lib\datepicker\datepicker.common.min.js" />
+    <Content Include="lib\datepicker\datepicker.css" />
+    <Content Include="lib\datepicker\datepicker.esm.js" />
+    <Content Include="lib\datepicker\datepicker.esm.min.js" />
+    <Content Include="lib\datepicker\datepicker.js" />
+    <Content Include="lib\datepicker\datepicker.min.css" />
+    <Content Include="lib\datepicker\datepicker.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ar-AE.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ar-AE.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ar-IQ.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ar-IQ.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ca-ES.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ca-ES.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.cs-CZ.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.cs-CZ.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.da-DK.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.da-DK.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.de-AT.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.de-AT.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.de-DE.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.de-DE.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.el-GR.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.el-GR.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.en-GB.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.en-GB.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.en-US.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.en-US.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.es-ES.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.es-ES.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.fi-FI.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.fi-FI.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.fr-FR.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.fr-FR.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.hu-HU.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.hu-HU.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.is-IS.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.is-IS.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.it-IT.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.it-IT.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ja-JP.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ja-JP.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.km-KH.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.km-KH.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ko-KR.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ko-KR.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.lt-LT.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.lt-LT.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.lv-LV.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.lv-LV.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.nb-NO.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.nb-NO.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.nl-NL.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.nl-NL.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.oc-FR.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.oc-FR.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.pl-PL.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.pl-PL.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.pt-BR.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.pt-BR.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ro-RO.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ro-RO.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ru-RU.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ru-RU.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.si-LK.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.si-LK.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.sk-SK.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.sk-SK.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.sl-SI.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.sl-SI.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.sv-SE.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.sv-SE.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ta-TA.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ta-TA.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.th-TH.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.th-TH.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.tr-TR.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.tr-TR.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ug-CN.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.ug-CN.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.uk-UA.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.uk-UA.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.vi-VN.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.vi-VN.min.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.zh-CN.js" />
+    <Content Include="lib\datepicker\i18n\datepicker.zh-CN.min.js" />
+    <Content Include="lib\jquery-modal\jquery.modal.css" />
+    <Content Include="lib\jquery-modal\jquery.modal.js" />
+    <Content Include="lib\jquery-modal\jquery.modal.min.css" />
+    <Content Include="lib\jquery-modal\jquery.modal.min.js" />
     <Content Include="lib\jquery\jquery.js" />
     <Content Include="lib\jquery\jquery.min.js" />
     <Content Include="lib\jquery\jquery.slim.js" />
@@ -599,6 +751,11 @@
     <Content Include="Areas\Admin\Views\Supplier\_Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\_Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Supplier\_Details.cshtml" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="Areas\Admin\Views\Product\ProductsForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\AllProducts.cshtml" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.3.js" />
     <Content Include="Scripts\jquery-3.6.3.min.js" />
@@ -607,6 +764,9 @@
     <Content Include="Scripts\jquery-3.6.3.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.13.2.js" />
+    <Content Include="Scripts\jquery-ui-1.13.2.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -681,6 +841,8 @@
     <Content Include="Scripts\src\utils\setAttributes.js" />
     <Content Include="Scripts\src\utils\setStyles.js" />
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />

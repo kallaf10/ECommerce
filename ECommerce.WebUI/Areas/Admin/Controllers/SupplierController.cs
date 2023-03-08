@@ -77,8 +77,11 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
         }
         public ActionResult Edit(SupplierVM supplier) 
         {
-            Supplier supp= new Supplier { ID=supplier.ID, Name=supplier.Name };
-            SRepository.Edit(supp.ID,supp);
+            if (ModelState.IsValid)
+            {
+                Supplier supp = new Supplier { ID = supplier.ID, Name = supplier.Name };
+                SRepository.Edit(supp.ID, supp);
+            }
            return RedirectToAction("Index");
         }
     }

@@ -1,0 +1,137 @@
+﻿<link href="~/Content/toastr.css" rel="stylesheet" />
+<link href="~/Areas/Admin/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/fontawesome.min.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Products";
+}
+
+
+@*@Html.Action("ProductsForm",new {id=0, trigger="Add" })*@
+
+<div class="container d-flex justify-content-center " style="margin-bottom:10px;">
+    <button data-toggle="modal" data-target="#ProductAdd" class="d-inline justify-content-center btn btn-outline-primary" onclick="AddProduct(null,'Add')">Add A New Products</button>
+</div>
+<div class="modal" id="ProductAdd" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" id="ProdctAddContent">
+
+    </div>
+</div>
+
+<div class="card w-100">
+
+    <!-- Start Tabel-->
+
+    @Html.Action("AllProducts")
+
+</div>
+@section scripts{
+
+    <script src="~/Scripts/jquery-3.6.3.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+
+        });
+    </script>
+    <script src="~/lib/bootstrap-modal/js/bootstrap-modal.js"></script>
+    <script src="~/lib/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+    <script src="~/scripts/jquery.validate.min.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Areas/Admin/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/Areas/Admin/datatables/js/dataTables.bootstrap4.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/fontawesome/all.min.js"></script>
+    <script>
+        $(function () {
+            LoadProductsData();
+        });
+        var LoadProductsData = function () {
+            const __ajax = {
+                url: '/Admin/Product/GetAllProducts'
+                , method: 'GET'
+
+            }
+            $.ajax(__ajax).done(function (data) {
+                console.log(data)
+                var dataTableObj = {
+                    data: data,
+                    responsive: true,
+                    retrieve: true,
+                    ordering: true,
+                    columns: [
+                        { 'data': 'ID' },
+                        { 'data': 'Name' },
+                        { 'data': 'Description' },
+                        { 'data': 'ShortDescription' },
+                        { 'data': 'IsActive' },
+                        { 'data': '_ArriveDate' },
+                        { 'data': 'Pricre' },
+                        { 'data': 'CategoryName' },
+                        { 'data': 'BrandName' },
+                        { 'data': 'SupplierName' }
+                        , {
+                            'data': 'ID'
+                            , 'searchable': false,
+                            'sortable': false,
+                            'render': function (Code) {
+                                btns = '';
+                                btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"
+                                                                                                                    data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Edit')"><i class="fa fa-magic" aria-hidden="true"></i></button>`
+                                btns += `<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                                                                                                                    data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Details')"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
+                                btns += `<a href="/Admin/Product/Delete/${Code}" ><button type="button" class="btn btn-danger" style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button></a>`
+
+                                return btns
+                            }
+                        }
+                    ]
+                };
+                _currentTable.dataTable().fnDestroy();
+                _currentTable.dataTable(dataTableObj);
+            })
+        };
+        const _tblNameSlctr = '#tblProducts';
+        const _currentTable = $(`${_tblNameSlctr}`);
+    </script>
+    <script>
+
+        var OnSuccess = function (response) {
+
+            console.log(response.Message)
+            toastr.success(response.Message);
+            LoadProductsData();
+            $('#ProductAdd').modal('hide')
+        };
+        var OnFailure = function (response) {
+            toastr.error(response);
+        };
+
+        var OnComplete = function (Response) {
+
+        };
+
+    </script>
+    <script>
+        function AddProduct(id, trigger) {
+            $.ajax({
+                url: "/Admin/Product/ProductsForm",
+                data: { id, id, trigger, trigger },
+                success: function (response) {
+                    console.log(response)
+                    document.getElementById("ProdctAddContent").innerHTML = response;
+                }
+
+            });
+        }
+
+    </script>
+}

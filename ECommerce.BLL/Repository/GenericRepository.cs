@@ -38,7 +38,7 @@ namespace ECommerce.BLL.Repository
 
         public List<T> GetAll()
         {
-            return ECommerceDB.Set<T>().ToList();
+            return ECommerceDB.Set<T>().ToList<T>();
         }
 
         public T GetById(int id)
