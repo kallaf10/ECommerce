@@ -2,6 +2,7 @@
 <link href="~/Areas/Admin/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 <link href="~/lib/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" />
 <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Products";
@@ -29,18 +30,9 @@
 @section scripts{
 
     <script src="~/Scripts/jquery-3.6.3.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.2.js"></script>
     <script src="~/Scripts/jquery-ui.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.datepicker').datepicker({
-                dateFormat: "dd/M/yy",
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-60:+0"
-            });
-
-        });
-    </script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script src="~/lib/bootstrap-modal/js/bootstrap-modal.js"></script>
     <script src="~/lib/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
     <script src="~/scripts/jquery.validate.min.js"></script>
@@ -85,9 +77,9 @@
                             'render': function (Code) {
                                 btns = '';
                                 btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"
-                                                                                                                    data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Edit')"><i class="fa fa-magic" aria-hidden="true"></i></button>`
+                                                                                                                                        data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Edit')"><i class="fa fa-magic" aria-hidden="true"></i></button>`
                                 btns += `<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
-                                                                                                                    data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Details')"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
+                                                                                                                                        data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Details')"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
                                 btns += `<a href="/Admin/Product/Delete/${Code}" ><button type="button" class="btn btn-danger" style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button></a>`
 
                                 return btns
@@ -128,10 +120,15 @@
                 success: function (response) {
                     console.log(response)
                     document.getElementById("ProdctAddContent").innerHTML = response;
+                    $('#datepicker').datepicker({
+                        dateFormat: "dd/M/yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-60:+0" 
+                    });
                 }
 
             });
         }
-
     </script>
 }

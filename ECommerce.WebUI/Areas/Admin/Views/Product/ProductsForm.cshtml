@@ -35,14 +35,14 @@
                 </div>
                 <div style="color:red;margin:10px; padding:10px;">
                     @Html.LabelFor(z => z.CategoryID)
-                    @Html.DropDownListFor(z => z.CategoryID, new SelectList(Model.CategoryVMs, "ID", "Name"), new { @class = "form-control"})
+                    @Html.DropDownListFor(z => z.CategoryID, new SelectList(Model.CategoryVMs, "ID", "Name"), new { @class = "form-control" })
                     @Html.ValidationMessageFor(z => z.CategoryID)
                 </div>
                 <div style="color:red;margin:10px;">
                     @Html.LabelFor(z => z.ArriveDate)
-                    @Html.EditorFor(z => z.ArriveDate,additionalViewData: new { htmlAttributes = new { @class = "form-control",@id = "datepicker", @readonly = "true" } })
+                    @Html.TextBoxFor(z => z.ArriveDate, new { @class = "form-control",@id= "datepicker"})
                     @Html.ValidationMessageFor(z => z.ArriveDate)
-                </div>               
+                </div>
                 <div style="color:red;margin:10px;">
                     @Html.LabelFor(z => z.Description)
                     @Html.TextAreaFor(z => z.Description, new { @class = "form-control", @placeholder = "Product Description" })
@@ -50,7 +50,7 @@
                 </div>
                 <div style="color:red;margin:10px;">
                     @Html.LabelFor(z => z.Pricre)
-                    @Html.TextAreaFor(z => z.Pricre, new { @class = "form-control", @placeholder = "Product Description" })
+                    @Html.TextAreaFor(z => z.Pricre, new { @class = "form-control", @placeholder = "Product Price" })
                     @Html.ValidationMessageFor(z => z.Pricre)
                 </div>
                 <div style="color:red;margin:10px;">
@@ -77,6 +77,3 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     </div>
 </div>
-@section scripts{
-
-}

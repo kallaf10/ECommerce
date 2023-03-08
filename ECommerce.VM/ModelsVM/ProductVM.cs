@@ -17,6 +17,7 @@ namespace ECommerce.VM.ModelsVM
         public string ShortDescription { get; set; }
         [Required(ErrorMessage ="This Field is Required.... ")]
         public bool IsActive { get; set; }
+        public DateTime ArriveDate { get; set; }
 
         public string _ArriveDate { get; set; }
         [Required(ErrorMessage = "This Field Is Required....")]
