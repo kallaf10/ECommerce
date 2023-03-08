@@ -169,7 +169,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
                 else
                 {
                     ProductRepo.Edit(product.ID,product);
-                    return Json(new {Done=true, Messa="Edited"}, JsonRequestBehavior.AllowGet);
+                    return Json(new {Done=true, Message="Edited"}, JsonRequestBehavior.AllowGet);
                 }
             }
             return Json(new { Message = "Erorr" }, JsonRequestBehavior.AllowGet);
