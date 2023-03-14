@@ -1,4 +1,5 @@
 ﻿using ECommerce.DAL;
+using ECommerce.VM.ModelsVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace ECommerce.BLL.IRepository
     public interface ICategoryRepository:IGenericRepository<Category>
     {
         List<Category> GetCategoriesByname(string name);
+        List<CategoryVM> Browse();
     }
 }

@@ -1,12 +1,22 @@
 ﻿<link href="~/Content/toastr.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
 <link href="~/Areas/Admin/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 <link href="~/lib/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" />
 <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
 <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+@*<link href="~/Content/select2-bootstrap.css" rel="stylesheet" />*@
+@*<link href="~/Content/css/select2.css" rel="stylesheet" />*@
+@*<link href="~/Content/select2-bootstrap.css" rel="stylesheet" />*@
+<link href="~/Content/select2.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Products";
 }
-
+@*<style>
+    .bootbox.modal {
+        z-index: 999999999999 !important;
+    }
+</style>*@
 
 @*@Html.Action("ProductsForm",new {id=0, trigger="Add" })*@
 
@@ -15,6 +25,11 @@
 </div>
 <div class="modal" id="ProductAdd" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" id="ProdctAddContent">
+
+    </div>
+</div>
+<div class="modal" style="width:800px !important" id="ImageModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" id="ImageModalContent">
 
     </div>
 </div>
@@ -29,17 +44,20 @@
 @section scripts{
 
     <script src="~/Scripts/jquery-3.6.3.js"></script>
-    <script src="~/lib/bootstrap-modal/js/bootstrap-modal.js"></script>
-    <script src="~/lib/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
     <script src="~/scripts/jquery.validate.min.js"></script>
     <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootstrap-modal/js/bootstrap-modal.js"></script>
+    <script src="~/lib/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
     <script src="~/Areas/Admin/datatables/js/jquery.dataTables.js"></script>
     <script src="~/Areas/Admin/datatables/js/dataTables.bootstrap4.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/Scripts/jquery.datetimepicker.js"></script>
     <script src="~/Scripts/fontawesome/all.min.js"></script>
-    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+    @*<script src="~/lib/bootbox.js/bootbox.js"></script>*@
+    @*<script src="~/Scripts/bootbox.all.min.js"></script>*@
+<script src="~/Scripts/bootbox.js"></script>
+    <script src="~/Scripts/select2.js"></script>
     <script>
         $(function () {
             LoadProductsData();
@@ -74,11 +92,11 @@
                             'sortable': false,
                             'render': function (Code) {
                                 btns = '';
-                                btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"
-                                                                                                                                                    data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Edit')"><i class="fa fa-magic" aria-hidden="true"></i></button>`
-                                btns += `<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
-                                                                                                                                                    data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Details')"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
-                                btns += `<a href="/Admin/Product/Delete/${Code}" ><button type="button" class="btn btn-danger" style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button></a>`
+                                btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"data-target="#ImageModal" id="modalBtn" onclick="Images(${Code})"><i class="fa fa-image" alt="Images of product"></i></button>`
+                                btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Edit')" style="margin-left:5px;"><i class="fa fa-magic" aria-hidden="true"></i></button>`
+                                btns += `<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#ProductAdd" id="modalBtn" onclick="AddProduct(${Code},'Details')"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
+
+                                btns += `<a href="/Admin/Product/Delete/${Code}"class="btn btn-danger mb-3" style="margin-left:5px;" ><i class="fa fa-trash"></i></a>`
 
                                 return btns
                             }
@@ -97,7 +115,12 @@
         var OnSuccess = function (response) {
 
             console.log(response.Message)
-            toastr.success(response.Message);
+            if (response.action == 'Sccess') {
+                toastr.success(response.Message);
+            }
+            else {
+                toastr.error(response.Message);
+            }
             LoadProductsData();
             $('#ProductAdd').modal('hide')
         };
@@ -111,22 +134,140 @@
 
     </script>
     <script>
+        function MakeImageMain(id) {
+            $.ajax({
+                url: "/Admin/Image/ChangePhotoStatus/"
+                , data: { id, id },
+                success: function (response) {
+                    if (response.action === "Failed") {
+                        toastr.error(response.Message);
+                        LoadProductImages(response.productID)
+
+                    }
+                    else {
+                        toastr.success(response.Message);
+                        console.log(response.productID)
+                        LoadProductImages(response.productID)
+
+                    }
+                }
+            });
+        }
+    </script>
+    <script>
+
+        function Images(id) {
+            $.ajax({
+                url: "/Admin/Image/ImageView/",
+                data: { id, id },
+                success: function (response) {
+                    console.log(id);
+                    document.getElementById("ImageModalContent").innerHTML = response;
+                    LoadProductImages(id);
+                },
+                fail: function (resp) {
+                    console.log(resp)
+                }
+
+            });
+        }
+        var LoadProductImages = function (id) {
+            const ___ajax = {
+                url: '/Admin/Image/ImgOfProduct/' + id
+                , method: 'GET'
+
+            }
+            $.ajax(___ajax).done(function (data) {
+
+                const tt = '#tblProductImages';
+                const aa = $(`${tt}`);
+                var dataTObj = {
+                    data: data,
+                    responsive: true,
+                    retrieve: true,
+                    ordering: true,
+                    columns: [
+                        { 'data': 'ID' },
+                        { 'data': 'Description' },
+
+                        {
+                            'data': 'Image1',
+                            'render': function (Code) {
+
+                                btns = '';
+                                btns += `<a href="../../Attatchments/ProductImagesTable/Images/${Code}" target=_blank><img style="width:50px;hight:50px; border-radius:20px;" src= "../../Attatchments/ProductImagesTable/Images/${Code}"/></a>`
+
+                                return btns
+                            }
+
+                        },
+                        {
+                            'data': { IsMain, IsMain, 'ID': 'ID' },
+                            'render': function (Code) {
+                                //console.log(Code.ID)
+                                str = 'checked'
+                                if (Code.IsMain != true)
+                                    str = '';
+                                btns = '';
+                                btns += `<input type="checkbox" ${str} onchange="MakeImageMain(${Code.ID})">`
+                                str = '';
+                                return btns
+                            },
+                        },
+                        {
+                            'data': 'ID',
+                            'render': function (Code) {
+                                //console.log(Code.ID)
+
+                                btns = '';
+                                btns += `<button type="button" class="btn btn-danger mb-3"  onclick="DeleteImage(${Code})"style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button>`
+                                return btns
+                            }
+                        }
+
+                    ]
+                };
+
+                aa.dataTable().fnDestroy();
+                aa.dataTable(dataTObj);
+            })
+        };
+
+    </script>
+    <script>
         function AddProduct(id, trigger) {
             $.ajax({
                 url: "/Admin/Product/ProductsForm",
                 data: { id, id, trigger, trigger },
                 success: function (response) {
-                    console.log(response)
                     document.getElementById("ProdctAddContent").innerHTML = response;
+                    console.log(document.getElementsByClassName('selecttwo'));
+                    $('.selecttwo').select2({
+                        dropdownParent: "#ProductAdd", 
+                        placeholder: "-- Select --",
+
+                    });
                     $('#datepicker').datetimepicker({
                         dateFormat: "dd/M/yy",
                         changeMonth: true,
                         changeYear: true,
                         yearRange: "-60:+0"
                     });
+
                 }
 
             });
         }
+    </script>
+    <script>
+        function DeleteImage(id) {
+            bootbox.alert({
+                message: "This is an alert with an additional class!",
+                className: 'bb-alternate-modal',
+                bootboxParent:'#ImageModal'
+            });
+
+        }
+
     </script>
 }

@@ -1,4 +1,5 @@
-﻿using ECommerce.BLL.IRepository;
+﻿using AutoMapper;
+using ECommerce.BLL.IRepository;
 using ECommerce.BLL.Repository;
 using ECommerce.DAL;
 using ECommerce.VM.ModelsVM;
@@ -34,68 +35,21 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
             List<Brand> brands = brandRepository.GetAll();
             List<Supplier> suppliers = supplierRepository.GetAll();
             List<Category> categories = categoryRepository.GetAll();
+
+            ViewBag.brands = brands;
             if (id == 0||id==null)
             {
                 ViewBag.FormType = "Add";
 
-                ProductVM productVM = new ProductVM
-                {
-                    BrandVMs = brands.Select(s => new BrandVM
-                    {
-                        ID = s.ID,
-                        Name = s.Name,
-                        Description = s.Description,
-                    }).ToList(),
-                    SupplierVMs = suppliers.Select(s => new SupplierVM
-                    {
-                        ID = s.ID,
-                        Name = s.Name,
-                    }).ToList(),
-                    CategoryVMs = categories.Select(c => new CategoryVM
-                    {
-                        ID = c.ID,
-                        Name = c.Name,
-                        Description = c.Description,
 
-                    }).ToList()
-                };
-                return PartialView(productVM);
+                return PartialView();
             }
             else if (id != 0&& trigger=="Edit")
             {
                ViewBag.FormType = "Edit";
                Product product= ProductRepo.GetAll().Where(s=>s.ID==id).FirstOrDefault();
 
-                ProductVM productVM = new ProductVM {
-                    ID = product.ID,
-                    Name = product.Name,
-                    Description = product.Description,
-                    ShortDescription = product.ShortDescription,
-                    IsActive = product.IsActive,
-                    ArriveDate = product.ArriveDate,
-                    Pricre = product.Pricre,
-                    CategoryID = product.CategoryID,
-                    BrandID = product.BrandID,
-                    SupplierID = product.SupplierID,
-                    BrandVMs = brands.Select(s => new BrandVM
-                    {
-                        ID = s.ID,
-                        Name = s.Name,
-                        Description = s.Description,
-                    }).ToList(),
-                    SupplierVMs = suppliers.Select(s => new SupplierVM
-                    {
-                        ID = s.ID,
-                        Name = s.Name,
-                    }).ToList(),
-                    CategoryVMs = categories.Select(c => new CategoryVM
-                    {
-                        ID = c.ID,
-                        Name = c.Name,
-                        Description = c.Description,
-
-                    }).ToList()
-               };
+                ProductVM productVM = Mapper.DynamicMap<Product, ProductVM>(product);
                 return PartialView(productVM);
             }
             else if (id != 0&& trigger=="Details")
@@ -114,24 +68,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
                     CategoryID = product.CategoryID,
                     BrandID = product.BrandID,
                     SupplierID = product.SupplierID,
-                    BrandVMs = brands.Select(s => new BrandVM
-                    {
-                        ID = s.ID,
-                        Name = s.Name,
-                        Description = s.Description,
-                    }).ToList(),
-                    SupplierVMs = suppliers.Select(s => new SupplierVM
-                    {
-                        ID = s.ID,
-                        Name = s.Name,
-                    }).ToList(),
-                    CategoryVMs = categories.Select(c => new CategoryVM
-                    {
-                        ID = c.ID,
-                        Name = c.Name,
-                        Description = c.Description,
 
-                    }).ToList()
                 };
                 return PartialView(productVM);
             }
@@ -163,13 +100,13 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
                 if (productVM.ID == 0)
                 {
                     ProductRepo.Add(product);
-                    return Json(new { Done = true, Message = "Added" },JsonRequestBehavior.AllowGet);
+                    return Json(new { action="Sccess", Message = "Added" },JsonRequestBehavior.AllowGet);
 
                 }
                 else
                 {
                     ProductRepo.Edit(product.ID,product);
-                    return Json(new {Done=true, Message="Edited"}, JsonRequestBehavior.AllowGet);
+                    return Json(new {action= "Sccess", Message="Edited"}, JsonRequestBehavior.AllowGet);
                 }
             }
             return Json(new { Message = "Erorr" }, JsonRequestBehavior.AllowGet);
@@ -179,7 +116,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
         public JsonResult GetAllProducts()
         {
 
-            List<ProductVM> productVMs = ProductRepo.GetAll().Select( Z=> new ProductVM
+            List<ProductVM> productVMs = ProductRepo.GetAllInclude().Select( Z=> new ProductVM
             {
                 ID = Z.ID,
                 Name = Z.Name,
@@ -203,5 +140,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
             ProductRepo.Delete(id);
             return RedirectToAction("Index");
         }
+
+
     }
 }

@@ -82,6 +82,8 @@ foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
+       this.Configuration.ContextOptions.ProxyCreationEnabled = false;
+
         throw new UnintentionalCodeFirstException();
     }
 

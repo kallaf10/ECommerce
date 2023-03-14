@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -74,6 +75,7 @@
   <ItemGroup>
     <Compile Include="ModelsVM\BrandVM.cs" />
     <Compile Include="ModelsVM\CategoryVM.cs" />
+    <Compile Include="ModelsVM\ImageVM.cs" />
     <Compile Include="ModelsVM\LogInVM.cs" />
     <Compile Include="ModelsVM\ProductVM.cs" />
     <Compile Include="ModelsVM\SupplierVM.cs" />
@@ -94,6 +96,7 @@
     <None Include="Content\DataTables\css\common.scss" />
     <None Include="Content\DataTables\css\mixins.scss" />
     <None Include="Content\DataTables\css\semanticui.scss" />
+    <None Include="libman.json" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-2.0.0.min.map" />
   </ItemGroup>
@@ -304,6 +307,8 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="lib\bootbox.js\bootbox.js" />
+    <Content Include="lib\bootbox.js\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />

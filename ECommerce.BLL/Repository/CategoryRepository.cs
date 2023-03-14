@@ -1,5 +1,7 @@
-﻿using ECommerce.BLL.IRepository;
+﻿using AutoMapper;
+using ECommerce.BLL.IRepository;
 using ECommerce.DAL;
+using ECommerce.VM.ModelsVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,10 @@ namespace ECommerce.BLL.Repository
 
         
             return AllCategories;
+        }
+        public List<CategoryVM> Browse()
+        {
+            return GetAll().Select(z=> Mapper.DynamicMap<Category,CategoryVM>(z)).ToList();
         }
     }
 }

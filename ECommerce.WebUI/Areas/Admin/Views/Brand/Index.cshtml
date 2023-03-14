@@ -36,7 +36,7 @@
         <div class="modal-dialog modal-dialog-centered" id="BrandDetailsContent">
 
         </div>
-    </div> 
+    </div>
     <div class="modal" id="BrandEdit" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" id="BrandEditContent">
 
@@ -80,8 +80,8 @@
                                 'sortable': false,
                                 'render': function (img) {
                                     return `<a href= "../../Attatchments/BrandTable/Images/${img}" target="_blank">
-                                                   <img src="../../Attatchments/BrandTable/Images/${img}" style="width:30px;hight:30px;border-radius:100px;" />
-                                            </a>`
+                                                           <img src="../../Attatchments/BrandTable/Images/${img}" style="width:30px;hight:30px;border-radius:100px;" />
+                                                    </a>`
                                 }
                             },
                             {
@@ -91,22 +91,19 @@
                                 'render': function (Code) {
                                     btns = '';
                                     btns += `<button type="button" class="btn btn-success mb-3" data-toggle="modal"
-                                        data-target="#BrandEdit" id="modalBtn" onclick="EditBrand(${Code})"><i class="fa fa-magic" aria-hidden="true"></i></button>`
+                                                data-target="#BrandEdit" id="modalBtn" onclick="EditBrand(${Code})"><i class="fa fa-magic" aria-hidden="true"></i></button>`
                                     btns += `<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
-                                        data-target="#BrandDetails" id="modalBtn" onclick="BrandDetails(${Code})"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
+                                                data-target="#BrandDetails" id="modalBtn" onclick="BrandDetails(${Code})"style="margin-left:5px;"><i class="fa fa-info-circle" aria-hidden="true"></i></button>`
                                     btns += `<button type="button" class="btn btn-danger mb-3" data-toggle="modal"
-                                        data-target="#DeleteBrand" id="modalBtn" onclick="DeleteBrand(${Code})"style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button>`
-                
+                                                data-target="#DeleteBrand" id="modalBtn" onclick="DeleteBrand(${Code})"style="margin-left:5px;"><i class="fa fa-trash" aria-hidden="true"></i></button>`
+
                                     return btns
                                 }
-
                             }
                         ]
-
                     };
                     _table.dataTable().fnDestroy();
                     _table.dataTable(dataTableObj);
-
                 }).fail(function (response, s, xhr) {
                     document.alert(response);
                 })
@@ -125,8 +122,8 @@
                 });
             }
         </script>
-                <script>
-                    function BrandDetails(id) {
+        <script>
+            function BrandDetails(id) {
                 $.ajax({
                     url: "/Admin/Brand/_Details",
                     data: { id, id },
@@ -136,7 +133,7 @@
                 });
             }
         </script>
-                <script>
+        <script>
             function DeleteBrand(id) {
                 $.ajax({
                     url: "/Admin/Brand/_Delete",

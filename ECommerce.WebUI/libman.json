@@ -112,6 +112,11 @@
         "datepicker.min.css",
         "datepicker.min.js"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootbox.js@6.0.0",
+      "destination": "lib/bootbox.js/"
     }
   ]
 }

@@ -25,7 +25,7 @@ namespace ECommerce.DAL
         public string Description { get; set; }
         public string ShortDescription { get; set; }
         public bool IsActive { get; set; }
-        public DateTime ArriveDate { get; set; }
+        public System.DateTime ArriveDate { get; set; }
         public double Pricre { get; set; }
         public int CategoryID { get; set; }
         public int BrandID { get; set; }

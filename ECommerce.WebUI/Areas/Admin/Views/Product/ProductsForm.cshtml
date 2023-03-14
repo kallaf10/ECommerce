@@ -1,5 +1,15 @@
 ﻿@model ECommerce.VM.ModelsVM.ProductVM
-@{string formName = ViewBag.FormType; }
+
+@{string formName = ViewBag.FormType;
+    ECommerce.BLL.IRepository.IBrandRepository brandRepository = new ECommerce.BLL.Repository.BrandRepository();
+    ECommerce.BLL.IRepository.ISupplierRepository supplierRepository = new ECommerce.BLL.Repository.SupplierRepository();
+    ECommerce.BLL.IRepository.ICategoryRepository categoryRepository = new ECommerce.BLL.Repository.CategoryRepository();
+    List<ECommerce.VM.ModelsVM.CategoryVM> categoryVMs = categoryRepository.Browse();
+    List<ECommerce.VM.ModelsVM.SupplierVM> supplierVMs = supplierRepository.Browse();
+    List<ECommerce.VM.ModelsVM.BrandVM> brandVMs = brandRepository.Browse();
+
+
+    }
 <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Product Details</h5>
@@ -21,21 +31,21 @@
                 <div style="color:red;margin:10px; padding:10px;">
                     @Html.LabelFor(z => z.ShortDescription, new { })
                     @Html.TextAreaFor(z => z.ShortDescription, new { @class = "form-control", @placeholder = "Product Description" })
-                    @Html.ValidationMessageFor(z => z.Description)
+                    @Html.ValidationMessageFor(z => z.ShortDescription)
                 </div>
                 <div style="color:red;margin:10px; padding:10px;">
                     @Html.LabelFor(z => z.SupplierID, new { })
-                    @Html.DropDownListFor(z => z.SupplierID, new SelectList(Model.SupplierVMs, "ID", "Name"), new { @class = "form-control" })
+                    @Html.DropDownListFor(z => z.SupplierID, new SelectList(supplierVMs, "ID", "Name"), new { @class = "form-control selecttwo" })
                     @Html.ValidationMessageFor(z => z.SupplierID)
                 </div>
                 <div style="color:red;margin:10px; padding:10px;">
                     @Html.LabelFor(z => z.BrandID, new { })
-                    @Html.DropDownListFor(z => z.BrandID, new SelectList(Model.BrandVMs, "ID", "Name"), new { @class = "form-control" })
+                    @Html.DropDownListFor(z => z.BrandID, new SelectList(brandVMs, "ID", "Name"), new { @class = "form-control selecttwo" })
                     @Html.ValidationMessageFor(z => z.BrandID)
                 </div>
                 <div style="color:red;margin:10px; padding:10px;">
                     @Html.LabelFor(z => z.CategoryID)
-                    @Html.DropDownListFor(z => z.CategoryID, new SelectList(Model.CategoryVMs, "ID", "Name"), new { @class = "form-control" })
+                    @Html.DropDownListFor(z => z.CategoryID, new SelectList(categoryVMs, "ID", "Name"), new { @class = "form-control selecttwo" })
                     @Html.ValidationMessageFor(z => z.CategoryID)
                 </div>
                 <div style="color:red;margin:10px;">
@@ -60,7 +70,6 @@
                 </div>
 
             </div>
-
             if (formName == "Add")
             {
                 <button type="submit" class="btn btn-success">Save</button>
@@ -70,8 +79,7 @@
                 @Html.HiddenFor(z => z.ID)
                 <button type="submit" class="btn btn-success">Update</button>
             }
-        }
-
+         }
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

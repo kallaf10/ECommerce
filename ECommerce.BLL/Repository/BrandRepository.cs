@@ -1,9 +1,11 @@
 ﻿using ECommerce.BLL.IRepository;
 using ECommerce.DAL;
+using ECommerce.VM.ModelsVM;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using AutoMapper;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,5 +35,10 @@ namespace ECommerce.BLL.Repository
             DB.Brand.Remove(Oldbrand);
             return DB.SaveChanges();
         }
+       public List<BrandVM> Browse()
+        {
+            return GetAll().Select(Z => Mapper.DynamicMap<Brand, BrandVM>(Z)).ToList();
+        }
+
     }
 }

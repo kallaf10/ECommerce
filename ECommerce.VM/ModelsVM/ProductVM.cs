@@ -22,9 +22,6 @@ namespace ECommerce.VM.ModelsVM
         public string _ArriveDate { get; set; }
         [Required(ErrorMessage = "This Field Is Required....")]
         public double Pricre { get; set; }
-       public List<BrandVM> BrandVMs { get; set; }
-       public  List<CategoryVM> CategoryVMs { get; set; }
-       public List<SupplierVM> SupplierVMs { get; set; }
         public string BrandName { get; set; }
         public string CategoryName { get; set; }
         public string SupplierName { get; set; }

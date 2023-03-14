@@ -1,0 +1,56 @@
+﻿@model ECommerce.VM.ModelsVM.ImageVM
+@{
+    ECommerce.BLL.IRepository.IProductRepository productRepository =
+        new ECommerce.BLL.Repository.ProductRepository();
+    ECommerce.VM.ModelsVM.ProductVM product = productRepository.GetProductByID(ViewBag.ProductID);
+}
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">@product.Name Images</h5>
+        <button data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Add New Product Image
+            </div>
+            @using (Html.BeginForm("PostProductImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div style="color:red;margin:10px;">
+                    @Html.LabelFor(z => z.Description, new { })
+                    @Html.TextAreaFor(z => z.Description, new { @class = "form-control", @placeholder = "About Image" })
+                    @Html.ValidationMessageFor(z => z.Description)
+                </div>
+                <div style="color:red;margin:10px;">
+                    @Html.LabelFor(z => z.ProductID, new { })
+                    @Html.TextBoxFor(z => z.ProductID, new { @class = "form-control", @Value = ViewBag.ProductID, @readonly = "true" })
+                    @Html.ValidationMessageFor(z => z.ProductID)
+                </div>
+                <div style="color:red;margin:10px;">
+                    <input type="file" id="fileBase" name="fileBase" class="form-control" />
+                    @Html.ValidationMessageFor(z => z.Image1)
+                </div>
+                <div style="color:red;margin:10px;">
+                    @Html.LabelFor(z => z.IsMain, new { })
+                    @Html.CheckBoxFor(z => z.IsMain, new { })
+                </div>
+
+                <button style="margin:10px;" type="submit" class="btn btn-success">Save</button>
+            }
+        </div>
+
+    </div>
+
+    <div class="card w-100">
+
+        <!-- Start Tabel-->
+
+        @Html.Action("ImagesOfProduct")
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</div>
